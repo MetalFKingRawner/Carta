@@ -1,0 +1,48 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #ffebf3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+  }
+  
+  .game-container {
+    text-align: center;
+    color: #d6336c;
+  }
+  
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+  }
+  
+  #player {
+    width: 50px;
+    height: 50px;
+    background-color: #d6336c;
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 50%;
+  }
+  
+  .heart {
+    width: 30px;
+    height: 30px;
+    background-color: #ff4d6d;
+    position: absolute;
+    top: -30px;
+    border-radius: 50% 50% 0 0;
+    transform: rotate(45deg);
+    animation: fall linear infinite;
+  }
+  
+  @keyframes fall {
+    to {
+      transform: translateY(100vh) rotate(45deg);
+    }
+  }

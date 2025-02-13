@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juego de San Valentín</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #ffb6c1;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+        }
+
+        .game-container {
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #8b0000;
+            margin-bottom: 20px;
+        }
+
+        .progress-container {
+            width: 300px;
+            height: 20px;
+            background-color: #ffe4e1;
+            border-radius: 10px;
+            margin: 20px auto;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            width: 0%;
+            height: 100%;
+            background-color: #ff69b4;
+            transition: width 0.3s ease;
+        }
+
+        .counter {
+            font-size: 24px;
+            color: #8b0000;
+            margin: 10px 0;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 30px;
+            color: #ff1493;
+            cursor: pointer;
+            user-select: none;
+            animation: fall 4s linear infinite;
+        }
+
+        @keyframes fall {
+            from {
+                top: -50px;
+            }
+            to {
+                top: 100vh;
+            }
+        }
+
+        .game-over {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            display: none;
+        }
+    </style>
+  </head>
+  <body>
+    <div class="game-container">
+      <h1>¡Atrapa 10 corazones para continuar ;)!</h1>
+      <div class="counter">Corazones recolectados: <span
+          id="count">0</span></div>
+      <div class="progress-container">
+        <div class="progress-bar" id="progress"></div>
+      </div>
+    </div>
+
+    <div class="game-over" id="gameOver">
+      <h2>¡Excelente trabajo mi amor!</h2>
+      <p>Completaste exitosamente el juego❤️</p>
+      <p>¡Presiona para continuar :3!</p>
+      <button id="continueBtn">Continuar</button>
+    </div>
+
+    <script>
+        let count = 0;
+        const maxHearts = 10;
+        const hearts = [];
+        
+        function createHeart() {
+            if (count >= maxHearts) return;
+            
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * (window.innerWidth - 30) + 'px';
+            
+            heart.onclick = function() {
+                count++;
+                document.getElementById('count').textContent = count;
+                document.getElementById('progress').style.width = (count/maxHearts)*100 + '%';
+                heart.remove();
+                
+                if (count === maxHearts) {
+                    document.getElementById('gameOver').style.display = 'block';
+                    hearts.forEach(h => h.remove());
+                    hearts.length = 0;
+
+                    // Agregar evento al botón continuar
+                    document.getElementById('continueBtn').addEventListener('click', () => {
+                        window.location.href = 'cartas.html';
+                    });
+                }
+            };
+
+            document.body.appendChild(heart);
+            hearts.push(heart);
+            
+            setTimeout(() => {
+                if (heart.isConnected) {
+                    heart.remove();
+                    hearts.splice(hearts.indexOf(heart), 1);
+                }
+            }, 4000);
+        }
+
+        // Crear corazones cada segundo
+        setInterval(createHeart, 1000);
+
+        // Crear corazones iniciales
+        for (let i = 0; i < 3; i++) {
+            setTimeout(createHeart, i * 300);
+        }
+    </script>
+  </body>
+</html>

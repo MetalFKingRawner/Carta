@@ -1,0 +1,233 @@
+<!-- Nueva página (guárdalo como cartas.html) -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mensajes Especiales</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #ffb6c1;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+        }
+
+        /* Fondo con corazones animados */
+        .background-hearts .heart {
+            position: absolute;
+            font-size: 15px;
+            color: #ff69b4;
+            opacity: 0.5;
+            animation: fall 8s linear infinite;
+        }
+
+        @keyframes fall {
+            from { top: -10vh; }
+            to { top: 110vh; }
+        }
+
+        .cards-container {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            gap: 20px;
+            flex-wrap: wrap;
+            padding: 20px;
+            perspective: 1000px; /* Añade perspectiva para efecto 3D */
+        }
+
+        .card {
+            width: 200px;
+            height: 250px;
+            background: #888;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.5s ease;
+            transform-origin: center;
+            position: relative;
+            transform-style: preserve-3d;
+        }
+
+        .card:hover {
+            transform: scale(1.05) translateZ(10px); /* Mejor efecto hover */
+        }
+
+        .card.flipped {
+            transform: rotateY(180deg) scale(1) translateZ(0);
+        }
+
+        .card-front, .card-back {
+            backface-visibility: hidden; /* Oculta la parte trasera */
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 15px;
+            padding: 20px;
+            box-sizing: border-box;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-front {
+            background: #888;
+            z-index: 2;
+        }
+
+        .card-back {
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+            transform: rotateY(180deg);
+            font-size: 1.1em;
+            text-align: center;
+            line-height: 1.4;
+            color: #8b0000;
+        }
+
+        #finalButton {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 15px 30px;
+            background: #ff69b4;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            display: none;
+            z-index: 3;
+        }
+
+        .text-container {
+            background: rgba(255, 255, 255, 0.2); /* Fondo blanco con 70% de opacidad */
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid rgba(192, 192, 192, 0.3); /* Borde gris muy suave */
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+            backdrop-filter: blur(2px); /* Efecto de desenfoque ligero (opcional) */
+        }
+
+        .card-back::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="background-hearts" id="backgroundHearts"></div>
+    
+    <div class="cards-container">
+        <!-- Tarjeta 1 -->
+        <div class="card">
+            <div class="card-front">❤️</div>
+            <div class="card-back" style="background-image: url('imagenes/ima1.JPG')">
+                <div class="text-container">
+                    Eres la persona más especial que he conocido en mi vida
+                </div>
+            </div>
+        </div>
+
+        <!-- Tarjeta 2 -->
+        <div class="card">
+            <div class="card-front">❤️</div>
+            <div class="card-back" style="background-image: url('imagenes/ima2.JPG')">
+                <div class="text-container">
+                    Tu sonrisa ilumina mis días más oscuros
+                </div>
+            </div>
+        </div>
+
+        <!-- Tarjeta 1 -->
+        <div class="card">
+            <div class="card-front">❤️</div>
+            <div class="card-back" style="background-image: url('imagenes/ima1.JPG')">
+                <div class="text-container">
+                    Eres la persona más especial que he conocido en mi vida
+                </div>
+            </div>
+        </div>
+
+        <!-- Tarjeta 2 -->
+        <div class="card">
+            <div class="card-front">❤️</div>
+            <div class="card-back" style="background-image: url('imagenes/ima2.JPG')">
+                <div class="text-container">
+                    Tu sonrisa ilumina mis días más oscuros
+                </div>
+            </div>
+        </div>
+
+        <!-- Tarjeta 1 -->
+        <div class="card">
+            <div class="card-front">❤️</div>
+            <div class="card-back" style="background-image: url('imagenes/ima1.JPG')">
+                <div class="text-container">
+                    Eres la persona más especial que he conocido en mi vida
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <button id="finalButton">Continuar</button>
+
+    <script>
+        // Generar corazones de fondo
+        function createBackgroundHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDelay = Math.random() * 5 + 's';
+            document.getElementById('backgroundHearts').appendChild(heart);
+            
+            setTimeout(() => heart.remove(), 9000);
+        }
+
+        setInterval(createBackgroundHeart, 500);
+
+        // Lógica de las tarjetas
+        let flippedCards = 0;
+        const cards = document.querySelectorAll('.card');
+        const finalButton = document.getElementById('finalButton');
+
+        cards.forEach(card => {
+            // Elimina los event listeners de hover del JS
+            card.addEventListener('click', function() {
+                if (!this.classList.contains('flipped')) {
+                    this.classList.add('flipped');
+                    flippedCards++;
+                    
+                    if (flippedCards === 5) {
+                        document.getElementById('finalButton').style.display = 'block';
+                        // Agregar evento al botón continuar
+                        document.getElementById('finalButton').addEventListener('click', () => {
+                            window.location.href = 'cena.html';
+                        });
+                    }
+                }
+            });
+        });
+
+        
+    </script>
+</body>
+</html>
