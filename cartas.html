@@ -11,7 +11,7 @@
             padding: 0;
             background-color: #ffb6c1;
             font-family: 'Arial', sans-serif;
-            overflow: hidden;
+            overflow-y: auto; /* Permite scroll vertical */
         }
 
         /* Fondo con corazones animados */
@@ -33,18 +33,21 @@
             z-index: 2;
             display: flex;
             justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            align-items:flex-start; /* Alinea tarjetas en la parte superior */
+            min-height: auto; /* Elimina altura fija */
+            height: auto;
             gap: 20px;
             flex-wrap: wrap;
-            padding: 20px;
+            padding: 20px 0 100px; /* Espacio superior e inferior */
             perspective: 1000px; /* Añade perspectiva para efecto 3D */
         }
 
         .card {
-            width: 200px;
-            height: 250px;
-            background: #888;
+            width: 90vw; /* Ocupa casi todo el ancho en móviles */
+            height: 400px; /* Altura fija para mejor visualización */
+            margin: 15px 0; /* Espacio entre tarjetas */
+            background: transparent !important; /* Elimina cualquier fondo residual */
+            box-shadow: none !important; /* Quita sombras del contenedor padre */
             border-radius: 15px;
             cursor: pointer;
             transition: all 0.5s ease;
@@ -62,6 +65,7 @@
         }
 
         .card-front, .card-back {
+            background-color: transparent; 
             backface-visibility: hidden; /* Oculta la parte trasera */
             position: absolute;
             width: 100%;
@@ -76,8 +80,12 @@
         }
 
         .card-front {
-            background: #888;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
             z-index: 2;
+            /* Nuevas propiedades para mejor visualización */
+            
         }
 
         .card-back {
@@ -130,6 +138,30 @@
             background: rgba(255, 255, 255, 0.3);
             border-radius: 15px;
         }
+
+        @media (min-width: 768px) {
+        .card {
+            width: 200px; /* Tamaño original en desktop */
+            height: 250px;
+            margin: 0 15px;
+        }
+        
+        .cards-container {
+            padding: 40px 0;
+        }
+
+        .card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 15px;
+            z-index: -1;
+        }
+    }
     </style>
 </head>
 <body>
@@ -138,8 +170,8 @@
     <div class="cards-container">
         <!-- Tarjeta 1 -->
         <div class="card">
-            <div class="card-front">❤️</div>
-            <div class="card-back" style="background-image: url('imagenes/Imag1.JPG')">
+            <div class="card-front" style="background-image: url('imagenes/bubu1.jpg')">❤️</div>
+            <div class="card-back" style="background-image: url('imagenes/Imag1.jpg')">
                 <div class="text-container">
                     Eres la persona más especial que he conocido en mi vida
                 </div>
@@ -148,40 +180,40 @@
 
         <!-- Tarjeta 2 -->
         <div class="card">
-            <div class="card-front">❤️</div>
-            <div class="card-back" style="background-image: url('imagenes/Imag2.JPG')">
+            <div class="card-front" style="background-image: url('imagenes/bubu2.jpg')">❤️</div>
+            <div class="card-back" style="background-image: url('imagenes/Imag2.jpg')">
                 <div class="text-container">
                     Tu sonrisa ilumina mis días más oscuros
                 </div>
             </div>
         </div>
 
-        <!-- Tarjeta 1 -->
+        <!-- Tarjeta 3 -->
         <div class="card">
-            <div class="card-front">❤️</div>
-            <div class="card-back" style="background-image: url('imagenes/Imag3.JPG')">
+            <div class="card-front" style="background-image: url('imagenes/bubu5.jpg')">❤️</div>
+            <div class="card-back" style="background-image: url('imagenes/Imag3.jpg')">
                 <div class="text-container">
-                    Eres la persona más especial que he conocido en mi vida
+                    Cada momento contigo es un regalo del multiverso
                 </div>
             </div>
         </div>
 
-        <!-- Tarjeta 2 -->
+        <!-- Tarjeta 4 -->
         <div class="card">
-            <div class="card-front">❤️</div>
-            <div class="card-back" style="background-image: url('imagenes/Imag4.JPG')">
+            <div class="card-front" style="background-image: url('imagenes/bubu3.webp')">❤️</div>
+            <div class="card-back" style="background-image: url('imagenes/Imag4.jpg')">
                 <div class="text-container">
-                    Tu sonrisa ilumina mis días más oscuros
+                    Complementas mi vida en todo sentido haciendola perfecta
                 </div>
             </div>
         </div>
 
-        <!-- Tarjeta 1 -->
+        <!-- Tarjeta 5 -->
         <div class="card">
-            <div class="card-front">❤️</div>
-            <div class="card-back" style="background-image: url('imagenes/IMG_9792.JPG')">
+            <div class="card-front" style="background-image: url('imagenes/bubu4.jpg')">❤️</div>
+            <div class="card-back" style="background-image: url('imagenes/IMG_9793.JPG')">
                 <div class="text-container">
-                    Eres la persona más especial que he conocido en mi vida
+                    Mi amor por ti crece más cada día que pasa
                 </div>
             </div>
         </div>
